@@ -1,0 +1,105 @@
+<div class="container-fluid">
+  <nav class="navbar mt-0 bg-gradient opacity-10" id="navbar">
+    <div class="container-fluid bg-secondary bg-gradient">
+      <div class="row">
+        <div class="col">
+          <a class="navbar-brand" href="#">
+            <img src="../../../assets/gifAvatarMontserrat.jpg" class="miAvatar navbar-brand" alt="hola" />
+          </a>
+        </div>
+
+      </div>
+      <div class="col text-center text-light h3 mt-2"><b>KANBAN BOARD</b></div>
+
+    </div>
+  </nav>
+  <div class="row mb-5 mt-5">
+    <div class="col-lg-6 offset-lg-3">
+      <input type="text" (keyup.enter)="agregarTarea()" [(ngModel)]="taskToDo"
+        class="form-control form-control-lg p-1 text-muted mx-auto"
+        placeholder="Input the new requirement ..">
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-2 offset-lg-1 text-center">
+        <h4 class="text-center mb-3 text-muted"><b>BackLog</b> </h4>
+
+        <div cdkDropList id="requirementsList" class="example-list mx-auto" (cdkDropListDropped)="drop($event)"
+          [cdkDropListData]="requirements" [cdkDropListConnectedTo]="['todoList']">
+          <div class="example-box align-middle text-auto" *ngFor="let e of requirements" cdkDrag>
+            <p class="ps-1 h6 text-muted"><b>{{e}}</b></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-2 text-center">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+              <h2 class="text-center text-danger"><b>To Do</b> </h2>
+            </div>
+          </div>
+        </div>
+        <div cdkDropList id="todoList" class="example-list mx-auto" (cdkDropListDropped)="drop($event)"
+          [cdkDropListData]="toDo" [cdkDropListConnectedTo]="['doingList','requirementsList']">
+          <div class="text-center">
+            <div class="example-box" *ngFor="let i of toDo" cdkDrag>
+              <p class="ps-1 h6 text-danger"><b>{{i}}</b></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-2 text-center">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+              <h2 class="text-center text-warning"><b>Doing</b> </h2>
+            </div>
+          </div>
+        </div>
+
+        <div cdkDropList id="doingList" [cdkDropListData]="doing" [cdkDropListConnectedTo]="['todoList','testList']"
+          class="example-list mx-auto" (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let j of doing" cdkDrag>
+            <p class="ps-1 h6 text-warning"><b>{{j}}</b></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-2 text-center">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+              <h2 class="text-center text-muted"><b>Test</b> </h2>
+            </div>
+          </div>
+        </div>
+
+        <div cdkDropList id="testList" class="example-list mx-auto" (cdkDropListDropped)="drop($event)"
+          [cdkDropListData]="test" [cdkDropListConnectedTo]="['doingList', 'doneList']">
+          <div class="example-box" *ngFor="let k of test" cdkDrag>
+            <p class="ps-1 h6 text-secondary"><b>{{k}}</b></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-2 text-center">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+              <h2 class="text-center text-success"><b>Done</b> </h2>
+            </div>
+          </div>
+        </div>
+
+        <div cdkDropList id="doneList" class="example-list mx-auto" (cdkDropListDropped)="drop($event)"
+          [cdkDropListData]="done" [cdkDropListConnectedTo]="['testList']">
+          <div class="example-box" *ngFor="let l of done" cdkDrag>
+            <p class="ps-1 h6 text-success"><b>{{l}}</b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
